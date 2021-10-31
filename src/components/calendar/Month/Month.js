@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Info } from "luxon";
 import { fetchFullnessData } from "../../../api/calendar";
+import { SchedulerContext } from "../../../App";
 
 import "./month.css";
 
 const Month = ({ year, month, startingWeekday, days }) => {
   const [fullnessData, setFullnessData] = useState({});
 
+  const { setSchedulingDay } = useContext(SchedulerContext);
+
   useEffect(() => {
     setTimeout(() => {
       setFullnessData(fetchFullnessData());
-      console.log(fullnessData);
+      // console.log(fullnessData);
     }, 500);
   }, []);
 
@@ -45,6 +48,10 @@ const Month = ({ year, month, startingWeekday, days }) => {
                 ${fullnessData?.[i] === "full" && "full"}
                 ${fullnessData?.[i] === "not_full" && "not_full"}
               `}
+              onClick={() => {
+                console.log(i);
+                i && setSchedulingDay({ day: i, month: month, year: year });
+              }}
             >
               <span>{i}</span>
             </button>
