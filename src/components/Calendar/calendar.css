@@ -1,0 +1,32 @@
+.slick-prev,
+.slick-next {
+  z-index: 100 !important;
+  height: 100%;
+  width: 45px;
+}
+
+.slick-prev {
+  left: 0px !important;
+}
+
+.slick-next {
+  right: 0px !important;
+}
+
+/* .slick-next,
+.slick-prev {
+  z-index: 100 !important;
+  height: 100%;
+  width: 75px;
+  background: linear-gradient(
+    90deg,
+    rgba(224, 144, 156, 1) 50%,
+    rgba(0, 212, 255, 0) 100%
+  );
+}
+
+.slick-prev::before,
+.slick-next::before {
+  background-color: red;
+  height: 200px;
+} */

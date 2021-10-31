@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css?family=Oxygen:400");
+
+.month {
+  display: inline-block;
+  padding: 0.3rem;
+  background-color: #e0909c;
+  text-align: center;
+  font-family: "Oxygen", sans-serif;
+  color: #d6eeff;
+  border-radius: 8px;
+  font-weight: bolder;
+}
+
+.month header {
+  /* background-color: white; */
+  margin-bottom: 0.3rem;
+  font-size: 1.1rem;
+}
+
+.month .weekdays-container {
+  display: flex;
+  margin-bottom: 0.3rem;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.month .weekday {
+  width: 30px;
+}
+
+.month .days-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+}
+
+.month .single-day {
+  width: 30px;
+  height: 30px;
+  background-color: #b3b9bc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: inherit;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.month .days-container .full {
+  background: red;
+}
+.month .days-container .not_full {
+  background: green;
+}
