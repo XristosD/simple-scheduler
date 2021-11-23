@@ -18,11 +18,15 @@ const Month = ({ year, month, startingWeekday, days }) => {
   }, []);
 
   const daysArray = () => {
-    return [
-      ...Array(startingWeekday - 1),
-      ...[...Array(days + 1).keys()].slice(1),
-      ...Array(43 - startingWeekday - days),
-    ];
+    const tmpArr = [];
+    for (let i = 0; i < 42; i++) {
+      if (i >= startingWeekday - 1 && i < startingWeekday + days - 1) {
+        tmpArr[i] = i - startingWeekday + 2;
+      } else {
+        tmpArr[i] = null;
+      }
+    }
+    return tmpArr;
   };
 
   return (

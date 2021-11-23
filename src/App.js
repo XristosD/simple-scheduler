@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { DateTime } from "luxon";
 import Calendar from "./components/calendar/Calendar";
-import Scheduler from "./components/scheduler/Scheduler";
+import Scheduler from "./components/Scheduler/Scheduler";
 
 import "./App.css";
 
