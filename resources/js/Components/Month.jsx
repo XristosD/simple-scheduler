@@ -27,7 +27,7 @@ function Month({year, month}) {
   }
 
   return (
-    <div className='border-2 rounded-md bg-slate-200 cursor-default drop-shadow'>
+    <div className='border-2 rounded-md bg-slate-200 cursor-default drop-shadow w-max'>
       <div className='text-center p-1 text-lg font-semibold text-indigo-900/90'>{monthText}</div>
       <div className="grid grid-cols-7 auto-cols-max gap-1 p-1 justify-items-center">
         {daysText.map(dayTextual => <div className="w-5 h-5 border-2 flex items-center justify-center rounded-md">
