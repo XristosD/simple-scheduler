@@ -1,11 +1,22 @@
 import React,  { useState, Fragment } from 'react'
-import { Switch } from '@headlessui/react'
 import { FiEdit3 } from 'react-icons/fi';
 import Modal from '@/components/Modal';
+import CustomTextInput from '@/components/CustomTextInput';
+import Switcher from '@/Components/Switcher';
+import { useForm } from '@inertiajs/inertia-react';
 
 function GroupItem() {
   const [enabled, setEnabled] = useState(false);
   const [openEditor, setOpenEditor] = useState(false);
+  const { data, setData, post, processing, errors } = useForm({
+    title: '',
+    body: '',
+    open: false,
+  })
+
+  const setOpen = (open) => {
+    setData('open', open);
+  }
 
   return (
     <>
@@ -16,26 +27,20 @@ function GroupItem() {
         </div>
         <div className="text-md">Title</div>
         <div className="flex justify-end text-xxs font-bold">
-          <Switch
-            checked={enabled}
-            onChange={setEnabled}
-            className={`${
-              enabled ? 'bg-indigo-700' : 'bg-indigo-300'
-            } relative inline-flex h-3 w-6 items-center rounded-full`}
-          >
-            <span className="sr-only">Enable notifications</span>
-            <span
-              className={`${
-                enabled ? 'translate-x-3' : 'translate-x-0'
-              } inline-block h-3 w-3 transform rounded-full bg-white transition`}
-            />
-          </Switch>
+          <Switcher checked={data.open} setChecked={setOpen} />
         </div>
       </div>
       <Modal isOpen={openEditor} setOpenModal={setOpenEditor} >
-        <form action="">
-          <label for="appt">Select a time:</label>
-          <input type="time" id="appt" name="appt"></input>
+        <form action="" className='space-y-3'>
+          <div className='flex flex-col'>
+            <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
+            <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
+          </div>
+          <div className='flex flex-col'>
+            <label htmlFor="body" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Body</label>
+            <textarea rows="3" id="body" value={data.body} onChange={e => setData('body', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
+          </div>
+          <Switcher checked={data.open} setChecked={setOpen} />
         </form>
 
         <div className="mt-4">
