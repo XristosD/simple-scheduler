@@ -4,9 +4,12 @@ import {AiFillPlusCircle} from 'react-icons/ai';
 import Modal from '@/components/Modal';
 import { useForm } from '@inertiajs/inertia-react';
 import Switcher from '@/Components/Switcher';
+import { FiEdit3 } from 'react-icons/fi';
 
 function Group() {
   const [openCreator, setOpenCreator] = useState(false);
+  const [openEditor, setOpenEditor] = useState(false);
+
 
   const { data, setData, post, processing, errors } = useForm({
     title: '',
@@ -20,7 +23,28 @@ function Group() {
 
   return (
     <div className="w-44 border-2 pb-10 rounded-lg border-indigo-200">
-      <div className="border-b-2 text-center bg-indigo-200 border-indigo-200 rounded-t-sm text-indigo-900">Group Title</div>
+      <div onClick={() => setOpenEditor(true)} className="flex items-center justify-center border-b-2 bg-indigo-200 border-indigo-200 rounded-t-sm text-indigo-900 px-1 py-2 relative group cursor-pointer">
+        <span className='text-center'>Group Title</span>
+        <FiEdit3 className="hidden text-xs absolute right-1 bottom-1 group-hover:block" />
+      </div>
+      <Modal isOpen={openEditor} setOpenModal={setOpenEditor} >
+        <form action="" className='space-y-3'>
+          <div className='flex flex-col'>
+            <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
+            <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
+          </div>
+        </form>
+
+        <div className="mt-4">
+          <button
+            type="button"
+            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            onClick={() => setOpenEditor(false)}
+          >
+            cancel
+          </button>
+        </div>
+      </Modal>
       <div className="p-1 flex flex-col gap-1 shadow-inner">
         <GroupItem />
         <GroupItem />
