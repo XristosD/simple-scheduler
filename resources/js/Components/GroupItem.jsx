@@ -1,7 +1,6 @@
 import React,  { useState, Fragment } from 'react'
 import { FiEdit3 } from 'react-icons/fi';
 import Modal from '@/components/Modal';
-import CustomTextInput from '@/components/CustomTextInput';
 import Switcher from '@/Components/Switcher';
 import { useForm } from '@inertiajs/inertia-react';
 
