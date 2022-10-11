@@ -15,6 +15,15 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('body')->nullable();
+            $table->boolean('open');
+            $table->time('begin_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->smallInteger('order');
+
+            $table->foreignId('group_id');
+
             $table->timestamps();
         });
     }

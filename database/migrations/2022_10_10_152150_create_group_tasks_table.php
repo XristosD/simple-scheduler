@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('group_tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->dateTime('date');
+            $table->smallInteger('order');
+
+            $table->foreignId('user_id');
+
             $table->timestamps();
         });
     }
