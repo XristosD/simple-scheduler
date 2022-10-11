@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SchedulerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,8 +29,6 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/scheduler', function () {
-    return Inertia::render('Scheduler');
-})->middleware(['auth', 'verified'])->name('scheduler');
+Route::get('/scheduler', [SchedulerController::class, 'index'])->middleware(['auth', 'verified'])->name('scheduler');
 
 require __DIR__ . '/auth.php';
