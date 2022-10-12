@@ -6,7 +6,7 @@ import { useForm } from '@inertiajs/inertia-react';
 import Switcher from '@/Components/Switcher';
 import { FiEdit3 } from 'react-icons/fi';
 
-function Group() {
+function Group({ id, title, order, date, tasks }) {
   const [openCreator, setOpenCreator] = useState(false);
   const [openEditor, setOpenEditor] = useState(false);
 
@@ -24,7 +24,7 @@ function Group() {
   return (
     <div className="w-44 border-2 pb-10 rounded-lg border-indigo-200">
       <div onClick={() => setOpenEditor(true)} className="flex items-center justify-center border-b-2 bg-indigo-200 border-indigo-200 rounded-t-sm text-indigo-900 px-1 py-2 relative group cursor-pointer">
-        <span className='text-center'>Group Title</span>
+        <span className='text-center'>{title}</span>
         <FiEdit3 className="hidden text-xs absolute right-1 bottom-1 group-hover:block" />
       </div>
       <Modal isOpen={openEditor} setOpenModal={setOpenEditor} >

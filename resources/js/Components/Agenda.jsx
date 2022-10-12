@@ -4,19 +4,21 @@ import {AiFillPlusCircle} from 'react-icons/ai';
 import Modal from '@/components/Modal';
 import { useForm } from '@inertiajs/inertia-react';
 
-function Agenda() {
+function Agenda({ groups }) {
   const [openCreator, setOpenCreator] = useState(false);
 
-    const { data, setData, post, processing, errors } = useForm({
+  const { data, setData, post, processing, errors } = useForm({
     title: '',
   })
+
+  const orderedGroups = _.orderBy(groups, 'order', 'desc');
 
   return (
     <div className='flex items-start'>
       <div className="flex gap-2">
-        <Group />
-        <Group />
-        <Group />
+        {orderedGroups.map((group) => {
+          return <Group key={group.id} id={group.id} title={group.title} order={group.order} date={group.date} tasks={group.tasks}/>
+        })}
       </div>
       <div className='ml-1 pt-1'>
         <button onClick={() => {setOpenCreator(true)}}>
