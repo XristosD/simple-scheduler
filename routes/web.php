@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupTaskController;
 use App\Http\Controllers\SchedulerController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/scheduler', [SchedulerController::class, 'index'])->middleware(['auth', 'verified'])->name('scheduler');
+
+Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::put('/{group}', 'update')->name('update');
+});
 
 require __DIR__ . '/auth.php';
