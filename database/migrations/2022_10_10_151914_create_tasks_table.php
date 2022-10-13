@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('body')->nullable();
             $table->boolean('open');
-            $table->time('begin_time')->nullable();
+            $table->dateTime('begin_time')->nullable();
             $table->dateTime('end_time')->nullable();
             $table->smallInteger('order');
 
