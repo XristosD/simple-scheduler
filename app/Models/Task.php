@@ -12,7 +12,7 @@ class Task extends Model
 
     protected $casts = [
         'open' => 'boolean',
-        'start_time' => 'datetime',
+        'begin_time' => 'datetime',
         'end_time' => 'datetime',
     ];
 
