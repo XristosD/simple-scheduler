@@ -22,6 +22,8 @@ function Group({ id, title, order, date, tasks }) {
     setData('open', open);
   }
 
+  const orderedTasks = _.orderBy(tasks, 'order', 'asc');
+
   return (
     <div className="w-44 border-2 pb-10 rounded-lg border-indigo-200">
       <div onClick={() => setOpenEditGroupModal(true)} className="flex items-center justify-center border-b-2 bg-indigo-200 border-indigo-200 rounded-t-sm text-indigo-900 px-1 py-2 relative group cursor-pointer">
@@ -30,10 +32,7 @@ function Group({ id, title, order, date, tasks }) {
       </div>
       <GroupUpdateModal isOpen={openEditGroupModal} setIsOpen={setOpenEditGroupModal} groupTitle={title} groupId={id}/>
       <div className="p-1 flex flex-col gap-1 shadow-inner">
-        <GroupItem />
-        <GroupItem />
-        <GroupItem />
-        <GroupItem />
+        {orderedTasks.map((task) => <GroupItem key={task.id} id={task.id} title={task.title} body={task.body} open={task.open} order={task.order} begin={task.begin_time} end={task.end_time} groupId={task.group_id} />)}
       </div>
       <div className='flex justify-center'>
         <button onClick={() => setOpenCreator(true)}>

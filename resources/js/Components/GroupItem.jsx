@@ -3,9 +3,10 @@ import { FiEdit3 } from 'react-icons/fi';
 import Modal from '@/components/Modal';
 import Switcher from '@/Components/Switcher';
 import { useForm } from '@inertiajs/inertia-react';
+import dayjs from 'dayjs';
 
-function GroupItem() {
-  const [enabled, setEnabled] = useState(false);
+function GroupItem({ id, title, body, open, order, begin, end, groupId }) {
+  const [itemOpen, setItemOpen] = useState(open);
   const [openEditor, setOpenEditor] = useState(false);
   const { data, setData, post, processing, errors } = useForm({
     title: '',
@@ -21,12 +22,14 @@ function GroupItem() {
     <>
       <div className="bg-indigo-200 p-1 rounded-md text-slate-800 shadow">
         <div className="flex justify-between text-xs font-bold">
-          <span>10:50</span>
+          <div>
+            <span>{dayjs(begin).format('HH:mm')}</span> - <span>{dayjs(end).format('HH:mm')}</span>
+          </div>
           <button onClick={() => setOpenEditor(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
         </div>
-        <div className="text-md">Title</div>
+        <div className="text-md">{title}</div>
         <div className="flex justify-end text-xxs font-bold">
-          <Switcher checked={data.open} setChecked={setOpen} />
+          <Switcher checked={itemOpen} setChecked={setItemOpen} />
         </div>
       </div>
       <Modal isOpen={openEditor} setOpenModal={setOpenEditor} >
