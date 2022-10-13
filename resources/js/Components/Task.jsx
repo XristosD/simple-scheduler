@@ -5,7 +5,7 @@ import Switcher from '@/Components/Switcher';
 import { useForm } from '@inertiajs/inertia-react';
 import dayjs from 'dayjs';
 
-function GroupItem({ id, title, body, open, order, begin, end, groupId }) {
+function Task({ id, title, body, open, order, begin, end, groupId }) {
   const [itemOpen, setItemOpen] = useState(open);
   const [openEditor, setOpenEditor] = useState(false);
   const { data, setData, post, processing, errors } = useForm({
@@ -59,4 +59,4 @@ function GroupItem({ id, title, body, open, order, begin, end, groupId }) {
   )
 }
 
-export default GroupItem
+export default Task

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import GroupItem from './GroupItem';
+import Task from './Task';
 import {AiFillPlusCircle} from 'react-icons/ai';
 import Modal from '@/components/Modal';
 import { useForm } from '@inertiajs/inertia-react';
@@ -32,7 +32,7 @@ function Group({ id, title, order, date, tasks }) {
       </div>
       <GroupUpdateModal isOpen={openEditGroupModal} setIsOpen={setOpenEditGroupModal} groupTitle={title} groupId={id}/>
       <div className="p-1 flex flex-col gap-1 shadow-inner">
-        {orderedTasks.map((task) => <GroupItem key={task.id} id={task.id} title={task.title} body={task.body} open={task.open} order={task.order} begin={task.begin_time} end={task.end_time} groupId={task.group_id} />)}
+        {orderedTasks.map((task) => <Task key={task.id} id={task.id} title={task.title} body={task.body} open={task.open} order={task.order} begin={task.begin_time} end={task.end_time} groupId={task.group_id} />)}
       </div>
       <div className='flex justify-center'>
         <button onClick={() => setOpenCreator(true)}>
