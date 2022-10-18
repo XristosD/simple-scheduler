@@ -5,8 +5,8 @@ import Switcher from '@/Components/Switcher';
 import dayjs from 'dayjs';
 
 function Task({ id, title, body, open, order, begin, end, groupId }) {
-  const [itemOpen, setItemOpen] = useState(open);
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [taskOpen, setTaskOpen] = useState(open);
+  const [openTaskUpdateModal, setOpenTaskUpdateModal] = useState(false);
 
   return (
     <>
@@ -15,16 +15,16 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
           <div>
             <span>{dayjs(begin).format('HH:mm')}</span> - <span>{dayjs(end).format('HH:mm')}</span>
           </div>
-          <button onClick={() => setOpenUpdateModal(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
+          <button onClick={() => setOpenTaskUpdateModal(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
         </div>
         <div className="text-md">{title}</div>
         <div className="flex justify-end text-xxs font-bold">
-          <Switcher checked={itemOpen} setChecked={setItemOpen} />
+          <Switcher checked={taskOpen} setChecked={setTaskOpen} />
         </div>
       </div>
       <TaskUpdateModal 
-        isOpen={openUpdateModal}
-        setIsOpen={setOpenUpdateModal}
+        isOpen={openTaskUpdateModal}
+        setIsOpen={setOpenTaskUpdateModal}
         id={id}
         title={title}
         body={body}
