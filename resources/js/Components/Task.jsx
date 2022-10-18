@@ -1,4 +1,4 @@
-import React,  { useState, Fragment } from 'react'
+import React,  { useState, Fragment, useEffect } from 'react'
 import { FiEdit3 } from 'react-icons/fi';
 import TaskUpdateModal from '@/components/TaskUpdateModal';
 import Switcher from '@/Components/Switcher';
@@ -7,6 +7,10 @@ import dayjs from 'dayjs';
 function Task({ id, title, body, open, order, begin, end, groupId }) {
   const [taskOpen, setTaskOpen] = useState(open);
   const [openTaskUpdateModal, setOpenTaskUpdateModal] = useState(false);
+
+  useEffect(() => {
+    setTaskOpen(open);
+  }, [open])
 
   return (
     <>
