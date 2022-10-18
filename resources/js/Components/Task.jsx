@@ -8,10 +8,6 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
   const [itemOpen, setItemOpen] = useState(open);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
-  const setOpen = (open) => {
-    setData('open', open);
-  }
-
   return (
     <>
       <div className="bg-indigo-200 p-1 rounded-md text-slate-800 shadow">
