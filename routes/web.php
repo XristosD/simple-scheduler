@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GroupTaskController;
 use App\Http\Controllers\SchedulerController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,10 @@ Route::get('/scheduler', [SchedulerController::class, 'index'])->middleware(['au
 
 Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::put('/{group}', 'update')->name('update');
+});
+
+Route::prefix('/tasks')->name('task.')->controller(TaskController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::put('/{task}', 'update')->name('update');
 });
 
 require __DIR__ . '/auth.php';
