@@ -30,7 +30,7 @@ function Group({ id, title, order, date, tasks }) {
         <span className='text-center'>{title}</span>
         <FiEdit3 className="hidden text-xs absolute right-1 bottom-1 group-hover:block" />
       </div>
-      <GroupUpdateModal isOpen={openEditGroupModal} setIsOpen={setOpenEditGroupModal} groupTitle={title} groupId={id}/>
+      <GroupUpdateModal isOpen={openEditGroupModal} setIsOpen={setOpenEditGroupModal} title={title} id={id}/>
       <div className="p-1 flex flex-col gap-1 shadow-inner">
         {orderedTasks.map((task) => <Task key={task.id} id={task.id} title={task.title} body={task.body} open={task.open} order={task.order} begin={task.begin_time} end={task.end_time} groupId={task.group_id} />)}
       </div>

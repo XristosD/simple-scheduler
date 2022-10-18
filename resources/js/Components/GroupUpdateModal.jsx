@@ -2,16 +2,16 @@ import React, { useRef } from 'react'
 import Modal from '@/components/Modal';
 import { useForm } from '@inertiajs/inertia-react';
 
-function GroupUpdateModal({ isOpen, setIsOpen, groupTitle, groupId }) {
+function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
 
   const { data, setData, put, processing, errors } = useForm({
-    id: groupId,
-    title: groupTitle,
+    id: id,
+    title: title,
   })
 
   function submit(e) {
     e.preventDefault()
-    put(`/groups/${groupId}`, {
+    put(`/groups/${id}`, {
       preserveScroll: true,
       onSuccess: () => setIsOpen(false),
     })
