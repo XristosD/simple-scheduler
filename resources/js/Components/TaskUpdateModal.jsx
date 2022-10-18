@@ -17,7 +17,7 @@ function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end 
 
   function submit(e) {
     e.preventDefault()
-    put(`/task/${id}`, {
+    put(`/tasks/${id}`, {
       preserveScroll: true,
       onSuccess: () => setIsOpen(false),
     })
