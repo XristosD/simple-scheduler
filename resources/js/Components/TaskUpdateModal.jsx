@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/inertia-react';
 
 function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end }) {
 
-  const { data, setData, put, processing, errors } = useForm({
+  const { data, setData, put, processing, errors, reset } = useForm({
     id: id,
     title: title,
     body: body,
@@ -25,10 +25,17 @@ function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end 
 
   function setTaskOpen(val) {
     setData('open', val)
-  } 
+  }
+
+  function closeModal() {
+    if(!processing){
+      setIsOpen(false);
+      reset();
+    }
+  }
 
   return (
-      <Modal isOpen={isOpen} onClose={() => !processing && setIsOpen(false)} title={"Edit Task"}>
+      <Modal isOpen={isOpen} onClose={() => closeModal()} title={"Edit Task"}>
         <form onSubmit={submit} className='space-y-3'>
           <div className='flex flex-col'>
             <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
@@ -50,7 +57,7 @@ function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end 
             <button
               type="button"
               className="inline-flex justify-center rounded-md border border-transparent bg-indigo-200 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              onClick={() => setIsOpen(false)}
+              onClick={() => closeModal()}
               disabled={processing}
               >
               cancel
