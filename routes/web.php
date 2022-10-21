@@ -34,7 +34,7 @@ Route::get('/dashboard', function () {
 Route::get('/scheduler', [SchedulerController::class, 'index'])->middleware(['auth', 'verified'])->name('scheduler');
 
 Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)->middleware(['auth', 'verified'])->group(function () {
-    Route::put('/{group}', 'update')->name('update');
+    Route::put('/{group}', 'update')->name('update')->middleware('can:update,group');
 });
 
 Route::prefix('/tasks')->name('task.')->controller(TaskController::class)->middleware(['auth', 'verified'])->group(function () {

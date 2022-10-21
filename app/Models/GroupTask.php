@@ -10,6 +10,10 @@ class GroupTask extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+    ];
+
     protected $casts = [
         'date' => 'datetime',
     ];

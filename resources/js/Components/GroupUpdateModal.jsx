@@ -21,10 +21,10 @@ function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
       <Modal isOpen={isOpen} onClose={() => !processing && setIsOpen(false)} title={"Edit Group"}>
         <form onSubmit={submit} className='space-y-3'>
           <div className='flex flex-col'>
-            <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
-            <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
+            <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0">Title</label>
+            <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500"/>
+            {errors.title && <span className='text-xs text-red-700'>{errors.title}</span>}
           </div>
-
           <div className="pt-4 space-x-2">
             <button
               type="submit"
