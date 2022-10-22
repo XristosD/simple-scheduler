@@ -38,7 +38,7 @@ Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)
 });
 
 Route::prefix('/tasks')->name('task.')->controller(TaskController::class)->middleware(['auth', 'verified'])->group(function () {
-    Route::put('/{task}', 'update')->name('update');
+    Route::put('/{task}', 'update')->name('update')->middleware('can:update,task');
 });
 
 require __DIR__ . '/auth.php';

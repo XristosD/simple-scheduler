@@ -43,12 +43,16 @@ function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end 
           <div className='flex flex-col'>
             <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
             <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
+            {errors.title && <span className='text-xs text-red-700'>{errors.title}</span>}
           </div>
           <div className='flex flex-col'>
             <label htmlFor="body" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Body</label>
             <textarea rows="3" id="body" value={data.body} onChange={e => setData('body', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
+            {errors.body && <span className='text-xs text-red-700'>{errors.body}</span>}
           </div>
           <Switcher checked={data.open} setChecked={setTaskOpen} />
+          {errors.open && <span className='text-xs text-red-700'>{errors.open}</span>}
+          
           <div className="pt-4 space-x-2">
             <button
               type="submit"

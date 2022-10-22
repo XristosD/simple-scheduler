@@ -10,6 +10,12 @@ class Task extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'body',
+        'open',
+    ];
+
     protected $casts = [
         'open' => 'boolean',
         'begin_time' => 'datetime',

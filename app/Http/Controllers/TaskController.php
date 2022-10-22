@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
 {
-    public function update(Request $request, Task $task)
+    public function update(UpdateTaskRequest $request, Task $task)
     {
-        $task->title = $request->title;
-        $task->open = $request->open;
-        $task->save();
+        $validated = $request->validated();
+        $task->update($validated);
         return Redirect::route('scheduler');
     }
 }
