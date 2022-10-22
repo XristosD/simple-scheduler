@@ -6,7 +6,7 @@ import Date from '@/Components/Date';
 import Agenda from '@/Components/Agenda';
 
 export default function Scheduler(props) {
-    const { groups } = props;
+    const { date, groups } = props;
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -16,7 +16,7 @@ export default function Scheduler(props) {
             <Head title="Scheduler" />
 
             <Calendar />
-            <Date />
+            <Date date={date}/>
             <Agenda groups={groups}/>
         </AuthenticatedLayout>
     );

@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/scheduler', [SchedulerController::class, 'index'])->middleware(['auth', 'verified'])->name('scheduler');
+Route::get('/scheduler/{date?}', [SchedulerController::class, 'index'])->middleware(['auth', 'verified'])->name('scheduler');
 
 Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::put('/{group}', 'update')->name('update')->middleware('can:update,group');
