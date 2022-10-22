@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/inertia-react';
 
 function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end }) {
 
-  const { data, setData, put, processing, errors, reset } = useForm({
+  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
     id: id,
     title: title,
     body: body,
@@ -19,7 +19,10 @@ function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end 
     e.preventDefault()
     put(`/tasks/${id}`, {
       preserveScroll: true,
-      onSuccess: () => setIsOpen(false),
+      onSuccess: () => {
+        setIsOpen(false);
+        setDefaults();
+      },
     })
   }
 

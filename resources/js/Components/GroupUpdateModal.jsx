@@ -4,7 +4,7 @@ import { useForm } from '@inertiajs/inertia-react';
 
 function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
 
-  const { data, setData, put, processing, errors, reset } = useForm({
+  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
     id: id,
     title: title,
   })
@@ -13,7 +13,10 @@ function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
     e.preventDefault()
     put(`/groups/${id}`, {
       preserveScroll: true,
-      onSuccess: () => setIsOpen(false),
+      onSuccess: () => {
+        setIsOpen(false);
+        setDefaults();
+      },
     })
   }
 
