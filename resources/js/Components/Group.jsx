@@ -6,9 +6,10 @@ import { useForm } from '@inertiajs/inertia-react';
 import Switcher from '@/Components/Switcher';
 import { FiEdit3 } from 'react-icons/fi';
 import GroupUpdateModal from '@/Components/GroupUpdateModal';
+import TaskCreateModal from '@/Components/TaskCreateModal';
 
 function Group({ id, title, order, date, tasks }) {
-  const [openCreator, setOpenCreator] = useState(false);
+  const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
   const [openEditGroupModal, setOpenEditGroupModal] = useState(false);
 
 
@@ -35,33 +36,11 @@ function Group({ id, title, order, date, tasks }) {
         {orderedTasks.map((task) => <Task key={task.id} id={task.id} title={task.title} body={task.body} open={task.open} order={task.order} begin={task.begin_time} end={task.end_time} groupId={task.group_id} />)}
       </div>
       <div className='flex justify-center'>
-        <button onClick={() => setOpenCreator(true)}>
+        <button onClick={() => setOpenCreateTaskModal(true)}>
           <AiFillPlusCircle className='text-2xl text-indigo-200 hover:text-indigo-300 cursor-pointer'/>
         </button>
       </div>
-      <Modal isOpen={openCreator} setOpenModal={setOpenCreator} >
-        <form action="" className='space-y-3'>
-          <div className='flex flex-col'>
-            <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
-            <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
-          </div>
-          <div className='flex flex-col'>
-            <label htmlFor="body" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Body</label>
-            <textarea rows="3" id="body" value={data.body} onChange={e => setData('body', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
-          </div>
-          <Switcher checked={data.open} setChecked={setOpen} />
-        </form>
-
-        <div className="mt-4">
-          <button
-            type="button"
-            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            onClick={() => setOpenCreator(false)}
-          >
-            cancel
-          </button>
-        </div>
-      </Modal>
+      <TaskCreateModal isOpen={openCreateTaskModal} setIsOpen={setOpenCreateTaskModal} groupId={id}/>
     </div>
   )
 }
