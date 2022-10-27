@@ -6,7 +6,7 @@ import Date from '@/Components/Date';
 import Agenda from '@/Components/Agenda';
 
 export default function Scheduler(props) {
-    const { date, groups } = props;
+    const { date, aheadBehind, daysSum, groups } = props;
     return (
         <AuthenticatedLayout
             auth={props.auth}
@@ -15,7 +15,7 @@ export default function Scheduler(props) {
         >
             <Head title="Scheduler" />
 
-            <Calendar />
+            <Calendar date={date} aheadBehind={aheadBehind} daysSum={daysSum} />
             <Date date={date}/>
             <Agenda groups={groups}/>
         </AuthenticatedLayout>
