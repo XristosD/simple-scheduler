@@ -13,6 +13,6 @@ class GroupTaskController extends Controller
     public function update(UpdateGroupRequest $request, GroupTask $group)
     {
         $group->update($request->safe()->only(['title']));
-        return Redirect::route('scheduler');
+        return back();
     }
 }

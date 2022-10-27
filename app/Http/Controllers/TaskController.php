@@ -13,6 +13,6 @@ class TaskController extends Controller
     {
         $validated = $request->validated();
         $task->update($validated);
-        return Redirect::route('scheduler');
+        return back();
     }
 }
