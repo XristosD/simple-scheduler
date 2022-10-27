@@ -17,7 +17,7 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
       <div className="bg-indigo-200 p-1 rounded-md text-slate-800 shadow">
         <div className="flex justify-between text-xs font-bold">
           <div>
-            <span>{dayjs(begin).format('HH:mm')}</span> - <span>{dayjs(end).format('HH:mm')}</span>
+            <span>{begin && dayjs(begin).format('HH:mm')}</span> - <span>{end && dayjs(end).format('HH:mm')}</span>
           </div>
           <button onClick={() => setOpenTaskUpdateModal(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
         </div>
