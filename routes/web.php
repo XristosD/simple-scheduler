@@ -34,6 +34,7 @@ Route::get('/dashboard', function () {
 Route::get('/scheduler/{date?}', [SchedulerController::class, 'index'])->middleware(['auth', 'verified'])->name('scheduler');
 
 Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)->middleware(['auth', 'verified'])->group(function () {
+    Route::post('/', 'create')->name('create')->middleware('can:create,App\Models\GroupTask');
     Route::put('/{group}', 'update')->name('update')->middleware('can:update,group');
     Route::post('/newtask/{group}', 'newTask')->name('newtask')->middleware('can:update,group');
 });

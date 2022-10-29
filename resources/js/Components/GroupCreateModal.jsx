@@ -1,21 +1,22 @@
-import React, { useRef } from 'react'
+import React from 'react';
 import Modal from '@/components/Modal';
 import { useForm } from '@inertiajs/inertia-react';
 
-function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
+function GroupCreateModal({ isOpen, setIsOpen, refDate }) {
 
-  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
-    id: id,
-    title: title,
+    const { data, setData, post, processing, errors, reset, setDefaults } = useForm({
+    ref_date: refDate,
+    title: '',
   })
 
   function submit(e) {
     e.preventDefault()
-    put(`/groups/${id}`, {
+    post('/groups', {
       preserveScroll: true,
       onSuccess: () => {
         setIsOpen(false);
         setDefaults();
+        reset();
       },
     })
   }
@@ -28,7 +29,7 @@ function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={() => closeModal()} title={"Edit Group"}>
+    <Modal isOpen={isOpen} onClose={() => closeModal()} title={"Create Group"}>
       <form onSubmit={submit} className='space-y-3'>
         <div className='flex flex-col'>
           <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0">Title</label>
@@ -57,4 +58,4 @@ function GroupUpdateModal({ isOpen, setIsOpen, title, id }) {
   )
 }
 
-export default GroupUpdateModal
+export default GroupCreateModal

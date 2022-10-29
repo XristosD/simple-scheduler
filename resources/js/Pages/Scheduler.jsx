@@ -17,7 +17,7 @@ export default function Scheduler(props) {
 
             <Calendar date={date} aheadBehind={aheadBehind} daysSum={daysSum} />
             <Date date={date}/>
-            <Agenda groups={groups}/>
+            <Agenda date={date} groups={groups}/>
         </AuthenticatedLayout>
     );
 }

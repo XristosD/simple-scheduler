@@ -41,7 +41,7 @@ class GroupPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
