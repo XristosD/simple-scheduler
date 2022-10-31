@@ -15,4 +15,15 @@ class TaskController extends Controller
         $task->update($validated);
         return back();
     }
+
+    public function setOpen(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'open' => 'required|boolean',
+        ]);
+        $task->open = $validated['open'];
+        $task->save();
+
+        return back();
+    }
 }

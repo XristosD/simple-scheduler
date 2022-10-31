@@ -3,37 +3,11 @@ import Modal from '@/components/Modal';
 import Switcher from '@/Components/Switcher';
 import { useForm } from '@inertiajs/inertia-react';
 
-function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end }) {
-
-  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
-    id: id,
-    title: title,
-    body: body,
-    open: open,
-    begin: begin,
-    end: end,
-  })
-  
-
-  function submit(e) {
-    e.preventDefault()
-    put(`/tasks/${id}`, {
-      preserveScroll: true,
-      onSuccess: () => {
-        setIsOpen(false);
-        setDefaults();
-      },
-    })
-  }
-
-  function setTaskOpen(val) {
-    setData('open', val)
-  }
+function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, processing }) {
 
   function closeModal() {
     if(!processing){
       setIsOpen(false);
-      reset();
     }
   }
 
@@ -50,7 +24,7 @@ function TaskUpdateModal({ isOpen, setIsOpen, id, title, body, open, begin, end 
           <textarea rows="3" id="body" value={data.body} onChange={e => setData('body', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
           {errors.body && <span className='text-xs text-red-700'>{errors.body}</span>}
         </div>
-        <Switcher checked={data.open} setChecked={setTaskOpen} />
+        <Switcher checked={data.open} setChecked={(val) => setData('open', val)} />
         {errors.open && <span className='text-xs text-red-700'>{errors.open}</span>}
         
         <div className="pt-4 space-x-2">

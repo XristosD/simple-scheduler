@@ -26,7 +26,7 @@ class UpdateTaskRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'body' => '',
-            'open' => 'required',
+            'open' => 'required|boolean',
         ];
     }
 }

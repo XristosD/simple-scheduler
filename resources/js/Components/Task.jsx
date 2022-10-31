@@ -1,16 +1,39 @@
-import React,  { useState, Fragment, useEffect } from 'react'
+import React,  { useState, Fragment, useEffect } from 'react';
+import { Inertia } from '@inertiajs/inertia';
+import { useForm } from '@inertiajs/inertia-react';
 import { FiEdit3 } from 'react-icons/fi';
 import TaskUpdateModal from '@/components/TaskUpdateModal';
 import Switcher from '@/Components/Switcher';
 import dayjs from 'dayjs';
 
 function Task({ id, title, body, open, order, begin, end, groupId }) {
-  const [taskOpen, setTaskOpen] = useState(open);
   const [openTaskUpdateModal, setOpenTaskUpdateModal] = useState(false);
 
-  useEffect(() => {
-    setTaskOpen(open);
-  }, [open])
+  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
+    id: id,
+    title: title,
+    body: body,
+    open: open,
+    begin: begin,
+    end: end,
+  })
+
+  function submit(e) {
+    e.preventDefault()
+    put(`/tasks/${id}`, {
+      preserveScroll: true,
+      onSuccess: () => setOpenTaskUpdateModal(false),
+    })
+  }
+
+  const toggleTaskOpen = (negOpen) => {
+    Inertia.post(`/tasks/${id}/open`, {
+        open: negOpen
+      }, {
+      preserveScroll: true,
+      onSuccess: () => setData("open", negOpen)
+    });
+  }
 
   return (
     <>
@@ -23,18 +46,18 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
         </div>
         <div className="text-md">{title}</div>
         <div className="flex justify-end text-xxs font-bold">
-          <Switcher checked={taskOpen} setChecked={setTaskOpen} />
+          <Switcher checked={open} setChecked={toggleTaskOpen}/>
         </div>
       </div>
-      <TaskUpdateModal 
+      <TaskUpdateModal
         isOpen={openTaskUpdateModal}
         setIsOpen={setOpenTaskUpdateModal}
-        id={id}
-        title={title}
-        body={body}
-        open={open}
-        begin={begin}
-        end={end}
+        data={data}
+        setData={setData}
+        submit={submit}
+        errors={errors}
+        processing={processing}
+        reset={reset}
       />
     </>
   )
