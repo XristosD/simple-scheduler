@@ -14,7 +14,6 @@ function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, pro
   function openDeleteModal() {
     closeModal();
     setOpenTaskDeleteModal(true);
-
   }
 
   return (
