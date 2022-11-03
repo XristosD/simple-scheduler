@@ -37,6 +37,7 @@ Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)
     Route::post('/', 'create')->name('create')->middleware('can:create,App\Models\GroupTask');
     Route::put('/{group}', 'update')->name('update')->middleware('can:update,group');
     Route::post('/newtask/{group}', 'newTask')->name('newtask')->middleware('can:update,group');
+    Route::delete('/{group}', 'delete')->name('delete')->middleware('can:update,group');
 });
 
 Route::prefix('/tasks')->name('task.')->controller(TaskController::class)->middleware(['auth', 'verified'])->group(function () {

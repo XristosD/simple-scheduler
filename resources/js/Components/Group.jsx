@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Inertia } from '@inertiajs/inertia';
 import Task from './Task';
 import {AiFillPlusCircle} from 'react-icons/ai';
-import Modal from '@/components/Modal';
 import { useForm } from '@inertiajs/inertia-react';
-import Switcher from '@/Components/Switcher';
 import { FiEdit3 } from 'react-icons/fi';
 import GroupUpdateModal from '@/Components/GroupUpdateModal';
 import TaskCreateModal from '@/Components/TaskCreateModal';
+import GroupDeleteModal from '@/Components/GroupDeleteModal';
 
 function Group({ id, title, order, date, tasks }) {
   const [openCreateTaskModal, setOpenCreateTaskModal] = useState(false);
   const [openEditGroupModal, setOpenEditGroupModal] = useState(false);
+  const [openGroupDeleteModal, setOpenGroupDeleteModal] = useState(false);
+  const [deleteProcess, setDeleteProcess] = useState(false);
 
 
   const { data, setData, post, processing, errors } = useForm({
@@ -19,8 +21,13 @@ function Group({ id, title, order, date, tasks }) {
     open: false,
   })
 
-  const setOpen = (open) => {
-    setData('open', open);
+  const deleteGroup = () => {
+    Inertia.delete(`/groups/${id}`,{
+      preserveScroll: true,
+      onSuccess: () => setOpenGroupDeleteModal(false),
+      onStart: () => setDeleteProcess(true),
+      onFinish: () => setDeleteProcess(false),
+    })
   }
 
   const orderedTasks = _.orderBy(tasks, 'order', 'asc');
@@ -31,7 +38,13 @@ function Group({ id, title, order, date, tasks }) {
         <span className='text-center'>{title}</span>
         <FiEdit3 className="hidden text-xs absolute right-1 bottom-1 group-hover:block" />
       </div>
-      <GroupUpdateModal isOpen={openEditGroupModal} setIsOpen={setOpenEditGroupModal} title={title} id={id}/>
+      <GroupUpdateModal isOpen={openEditGroupModal} setIsOpen={setOpenEditGroupModal} title={title} id={id} setOpenGroupDeleteModal={setOpenGroupDeleteModal}/>
+      <GroupDeleteModal 
+        isOpen={openGroupDeleteModal} 
+        setIsOpen={setOpenGroupDeleteModal}
+        deleteGroup={deleteGroup}
+        deleteProcess={deleteProcess}
+      />
       <div className="p-1 flex flex-col gap-1 shadow-inner">
         {orderedTasks.map((task) => <Task key={task.id} id={task.id} title={task.title} body={task.body} open={task.open} order={task.order} begin={task.begin_time} end={task.end_time} groupId={task.group_id} />)}
       </div>

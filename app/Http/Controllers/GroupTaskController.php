@@ -43,4 +43,12 @@ class GroupTaskController extends Controller
         $group->tasks()->save($task);
         return back();
     }
+
+    public function delete(Request $request, GroupTask $group)
+    {
+        $group->tasks()->delete();
+        $group->delete();
+
+        return back();
+    }
 }
