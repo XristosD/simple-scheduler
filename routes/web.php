@@ -42,6 +42,7 @@ Route::prefix('/groups')->name('group.')->controller(GroupTaskController::class)
 Route::prefix('/tasks')->name('task.')->controller(TaskController::class)->middleware(['auth', 'verified'])->group(function () {
     Route::put('/{task}', 'update')->name('update')->middleware('can:update,task');
     Route::post('/{task}/open', 'setOpen')->name('setOpen')->middleware('can:update,task');
+    Route::delete('/{task}', 'delete')->name('delete')->middleware('can:update,task');
 });
 
 require __DIR__ . '/auth.php';

@@ -26,4 +26,11 @@ class TaskController extends Controller
 
         return back();
     }
+
+    public function delete(Request $request, Task $task)
+    {
+        $task->delete();
+
+        return back();
+    }
 }

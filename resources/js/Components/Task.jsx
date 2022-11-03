@@ -2,14 +2,18 @@ import React,  { useState, Fragment, useEffect } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-react';
 import { FiEdit3 } from 'react-icons/fi';
+import { MdDelete } from 'react-icons/md';
 import TaskUpdateModal from '@/components/TaskUpdateModal';
+import TaskDeleteModal from '@/components/TaskDeleteModal';
 import Switcher from '@/Components/Switcher';
 import dayjs from 'dayjs';
 
 function Task({ id, title, body, open, order, begin, end, groupId }) {
   const [openTaskUpdateModal, setOpenTaskUpdateModal] = useState(false);
+  const [openTaskDeleteModal, setOpenTaskDeleteModal] = useState(false);
+  const [deleteProcess, setDeleteProcess] = useState(false);
 
-  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
+  const { data, setData, put, processing, errors, reset } = useForm({
     id: id,
     title: title,
     body: body,
@@ -23,6 +27,15 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
     put(`/tasks/${id}`, {
       preserveScroll: true,
       onSuccess: () => setOpenTaskUpdateModal(false),
+    })
+  }
+
+  const deleteTask = () => {
+    Inertia.delete(`/tasks/${id}`,{
+      preserveScroll: true,
+      onSuccess: () => setOpenTaskUpdateModal(false),
+      onStart: () => setDeleteProcess(true),
+      onFinish: () => setDeleteProcess(false),
     })
   }
 
@@ -45,8 +58,11 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
           <button onClick={() => setOpenTaskUpdateModal(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
         </div>
         <div className="text-md">{title}</div>
-        <div className="flex justify-end text-xxs font-bold">
+        <div className="flex items-center pt-1 justify-between text-xxs font-bold">
           <Switcher checked={open} setChecked={toggleTaskOpen}/>
+          <button type='button' onClick={() => setOpenTaskDeleteModal(true)}>
+            <MdDelete className='text-base text-red-700' />
+          </button>
         </div>
       </div>
       <TaskUpdateModal
@@ -58,6 +74,14 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
         errors={errors}
         processing={processing}
         reset={reset}
+        deleteTask={deleteTask}
+        setOpenTaskDeleteModal={setOpenTaskDeleteModal}
+      />
+      <TaskDeleteModal 
+        isOpen={openTaskDeleteModal} 
+        setIsOpen={setOpenTaskDeleteModal}
+        deleteTask={deleteTask}
+        deleteProcess={deleteProcess}
       />
     </>
   )

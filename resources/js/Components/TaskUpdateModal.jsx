@@ -1,14 +1,20 @@
 import React from 'react';
 import Modal from '@/components/Modal';
 import Switcher from '@/Components/Switcher';
-import { useForm } from '@inertiajs/inertia-react';
+import { MdDelete } from 'react-icons/md';
 
-function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, processing }) {
+function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, processing, deleteTask, setOpenTaskDeleteModal }) {
 
   function closeModal() {
     if(!processing){
       setIsOpen(false);
     }
+  }
+
+  function openDeleteModal() {
+    closeModal();
+    setOpenTaskDeleteModal(true);
+
   }
 
   return (
@@ -27,22 +33,29 @@ function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, pro
         <Switcher checked={data.open} setChecked={(val) => setData('open', val)} />
         {errors.open && <span className='text-xs text-red-700'>{errors.open}</span>}
         
-        <div className="pt-4 space-x-2">
-          <button
-            type="submit"
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-200 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            disabled={processing}
-            >
-            save
-          </button>
-          <button
-            type="button"
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-200 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            onClick={() => closeModal()}
-            disabled={processing}
-            >
-            cancel
-          </button>
+        <div className="pt-4 flex justify-between items-center">
+          <div className='space-x-2'>
+            <button
+              type="submit"
+              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-200 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              disabled={processing}
+              >
+              save
+            </button>
+            <button
+              type="button"
+              className="inline-flex justify-center rounded-md border border-transparent bg-indigo-200 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              onClick={() => closeModal()}
+              disabled={processing}
+              >
+              cancel
+            </button>
+          </div>
+          <div>
+            <button type='button' onClick={openDeleteModal}>
+              <MdDelete className='text-lg text-red-700' />
+            </button>
+          </div>
         </div>
       </form>
     </Modal>
