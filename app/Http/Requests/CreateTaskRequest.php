@@ -26,6 +26,8 @@ class CreateTaskRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'body' => '',
+            'begin_time' => 'date',
+            'end_time' => 'date',
             'open' => 'required',
         ];
     }
