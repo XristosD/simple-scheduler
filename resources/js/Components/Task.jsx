@@ -7,6 +7,9 @@ import TaskUpdateModal from '@/components/TaskUpdateModal';
 import TaskDeleteModal from '@/components/TaskDeleteModal';
 import Switcher from '@/Components/Switcher';
 import dayjs from 'dayjs';
+import utc   from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 function Task({ id, title, body, open, order, begin, end, groupId }) {
   const [openTaskUpdateModal, setOpenTaskUpdateModal] = useState(false);
@@ -18,8 +21,8 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
     title: title,
     body: body,
     open: open,
-    begin: begin,
-    end: end,
+    begin_time: begin,
+    end_time: end,
   })
 
   function submit(e) {
@@ -53,7 +56,7 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
       <div className="bg-indigo-200 p-1 rounded-md text-slate-800 shadow">
         <div className="flex justify-between text-xs font-bold">
           <div>
-            <span>{begin && dayjs(begin).format('HH:mm')}</span> - <span>{end && dayjs(end).format('HH:mm')}</span>
+            <span>{begin && dayjs(begin).utc().format('HH:mm')}</span> - <span>{end && dayjs(end).utc().format('HH:mm')}</span>
           </div>
           <button onClick={() => setOpenTaskUpdateModal(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
         </div>

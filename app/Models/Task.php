@@ -13,6 +13,8 @@ class Task extends Model
     protected $fillable = [
         'title',
         'body',
+        'begin_time',
+        'end_time',
         'open',
     ];
 

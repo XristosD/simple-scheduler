@@ -2,8 +2,11 @@ import React from 'react';
 import Modal from '@/components/Modal';
 import Switcher from '@/Components/Switcher';
 import { MdDelete } from 'react-icons/md';
+import Timer from '@/Components/Timer';
 
-function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, processing, deleteTask, setOpenTaskDeleteModal }) {
+function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, processing, setOpenTaskDeleteModal }) {
+
+  console.log(data.begin_time);
 
   function closeModal() {
     if(!processing){
@@ -16,6 +19,14 @@ function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, pro
     setOpenTaskDeleteModal(true);
   }
 
+  function changeBeginTime(time) {
+    setData("begin_time", time)
+  }
+
+  function changeEndTime(time) {
+    setData("end_time", time)
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={() => closeModal()} title={"Edit Task"}>
       <form onSubmit={submit} className='space-y-3'>
@@ -23,6 +34,21 @@ function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, pro
           <label htmlFor="title" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Title</label>
           <input type="text" id="title" value={data.title} onChange={e => setData('title', e.target.value)} className="rounded-lg border-indigo-400 focus:border-indigo-500 focus:ring-indigo-500 peer"/>
           {errors.title && <span className='text-xs text-red-700'>{errors.title}</span>}
+        </div>
+        <div className='flex flex-col pb-0'>
+          <span className="text-sm text-indigo-500 font-medium pl-1 pb-0">Time</span>
+          <div className='flex gap-2'>
+            <div>
+              <label htmlFor="begin-time" className='hidden'>Begin Time</label>
+              <input type="hidden" name="begin-time" value={data.begin} />
+              <Timer strTime={data.begin_time} label={"begin"} onChangeTime={changeBeginTime}/>
+            </div>
+            <div>
+              <label htmlFor="end-time" className='hidden'>End Time</label>
+              <input type="hidden" name="end-time" value={data.end} />
+              <Timer strTime={data.end_time} label={"end"} onChangeTime={changeEndTime}/>
+            </div>
+          </div>
         </div>
         <div className='flex flex-col'>
           <label htmlFor="body" className="text-sm text-indigo-500 font-medium pl-1 pb-0 peer-focus:text-indigo-900">Body</label>
