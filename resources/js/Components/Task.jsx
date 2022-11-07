@@ -16,20 +16,41 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
   const [openTaskDeleteModal, setOpenTaskDeleteModal] = useState(false);
   const [deleteProcess, setDeleteProcess] = useState(false);
 
-  const { data, setData, put, processing, errors, reset } = useForm({
+  const { data, setData, put, processing, errors, reset, setDefaults } = useForm({
     id: id,
     title: title,
     body: body,
     open: open,
     begin_time: begin,
     end_time: end,
-  })
+  });
+
+  function closeUpdateModal() {
+    if(!processing){
+      setOpenTaskUpdateModal(false);
+      reset();
+    }
+  }
+
+  function OpenUpdateModal() {
+    setDefaults({
+      id: id,
+      title: title,
+      body: body,
+      open: open,
+      begin_time: begin,
+      end_time: end,
+    });
+    setOpenTaskUpdateModal(true);
+  }
 
   function submit(e) {
     e.preventDefault()
     put(`/tasks/${id}`, {
       preserveScroll: true,
-      onSuccess: () => setOpenTaskUpdateModal(false),
+      onSuccess: (page) => {
+        setOpenTaskUpdateModal(false);
+      },
     })
   }
 
@@ -58,7 +79,7 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
           <div>
             <span>{begin && dayjs(begin).utc().format('HH:mm')}</span> - <span>{end && dayjs(end).utc().format('HH:mm')}</span>
           </div>
-          <button onClick={() => setOpenTaskUpdateModal(true)}><FiEdit3 className="text-sm cursor-pointer" /></button>
+          <button onClick={() => OpenUpdateModal()}><FiEdit3 className="text-sm cursor-pointer" /></button>
         </div>
         <div className="text-md">{title}</div>
         <div className="flex items-center pt-1 justify-between text-xxs font-bold">
@@ -70,7 +91,7 @@ function Task({ id, title, body, open, order, begin, end, groupId }) {
       </div>
       <TaskUpdateModal
         isOpen={openTaskUpdateModal}
-        setIsOpen={setOpenTaskUpdateModal}
+        closeModal={closeUpdateModal}
         data={data}
         setData={setData}
         submit={submit}

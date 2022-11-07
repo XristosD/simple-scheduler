@@ -4,15 +4,7 @@ import Switcher from '@/Components/Switcher';
 import { MdDelete } from 'react-icons/md';
 import Timer from '@/Components/Timer';
 
-function TaskUpdateModal({ isOpen, setIsOpen, data, setData, submit, errors, processing, setOpenTaskDeleteModal }) {
-
-  console.log(data.begin_time);
-
-  function closeModal() {
-    if(!processing){
-      setIsOpen(false);
-    }
-  }
+function TaskUpdateModal({ isOpen, closeModal, data, setData, submit, errors, processing, setOpenTaskDeleteModal }) {
 
   function openDeleteModal() {
     closeModal();

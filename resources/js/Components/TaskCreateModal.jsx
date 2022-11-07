@@ -22,7 +22,15 @@ function TaskCreateModal({isOpen, setIsOpen, groupId}) {
       preserveScroll: true,
       onSuccess: () => {
         setIsOpen(false);
-        setDefaults();
+        setDefaults({
+          group_id: groupId,
+          title: "",
+          body: "",
+          open: false,
+          begin_time: dayjs().toString(),
+          end_time: dayjs().toString(),
+        });
+        reset();
       },
     })
   }
@@ -34,6 +42,14 @@ function TaskCreateModal({isOpen, setIsOpen, groupId}) {
   function closeModal() {
     if(!processing){
       setIsOpen(false);
+      setDefaults({
+        group_id: groupId,
+        title: "",
+        body: "",
+        open: false,
+        begin_time: dayjs().toString(),
+        end_time: dayjs().toString(),
+      });
       reset();
     }
   }
