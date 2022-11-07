@@ -19,14 +19,14 @@ function Timer({strTime, label, onChangeTime }) {
   }
 
   return (
-    <div className='relative border-[1px] rounded-lg p-1 border-indigo-400 flex gap-1 items-center'>
+    <div className='border-[1px] rounded-lg p-1 border-indigo-400 flex gap-1 items-center'>
       <div>
         <span className='text-base text-indigo-400 font-bold'>
           {label}
         </span>
       </div>
       <div className="flex gap-2 items-center">
-        <Popover className="">
+        <Popover className="relative">
           <Popover.Button>{`${time.hour()}`.padStart(2, '0')}</Popover.Button>
           <Transition
               as={Fragment}
@@ -37,8 +37,8 @@ function Timer({strTime, label, onChangeTime }) {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute top-9 left-0 z-10">
-                <div className="grid grid-cols-6 w-40 p-1 bg-indigo-400 auto-cols-max gap-1 rounded-lg    ">
+              <Popover.Panel className="absolute bg-indigo-400 rounded-lg p-1 top-8 -left-3 z-10">
+                <div className="grid grid-cols-1 overflow-y-scroll h-36 w-10 p-1  auto-cols-max gap-1  scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white">
                   {[...Array(24).keys()].map((_, index) => {
                     return (
                       <Popover.Button onClick={() => changeHour(index)} className="text-center text-slate-50 text-sm" key={index}>
@@ -51,7 +51,7 @@ function Timer({strTime, label, onChangeTime }) {
             </Transition>
         </Popover>
         <span>:</span>
-        <Popover className="">
+        <Popover className="relative">
           <Popover.Button>{`${time.minute()}`.padStart(2, '0')}</Popover.Button>
           <Transition
               as={Fragment}
@@ -62,12 +62,12 @@ function Timer({strTime, label, onChangeTime }) {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute top-9 left-0 z-10">
-                <div className="grid grid-cols-10 w-60 p-2 bg-indigo-400 auto-cols-max gap-1 rounded-lg    ">
-                  {[...Array(60).keys()].map((_, index) => {
+              <Popover.Panel className="absolute bg-indigo-400 rounded-lg p-1 top-8 -left-3 z-10">
+                <div className="grid grid-cols-1 overflow-y-scroll h-36 w-10 p-1  auto-cols-max gap-1  scrollbar-thin scrollbar-track-transparent scrollbar-thumb-white">
+                  {[...Array(12).keys()].map((_, index) => {
                     return (
-                      <Popover.Button onClick={() => changeMinute(index)} className="text-center text-slate-50 text-sm" key={index}>
-                        {`${index}`.padStart(2, '0')}
+                      <Popover.Button onClick={() => changeMinute(index*5)} className="text-center text-slate-50 text-sm" key={index}>
+                        {`${index*5}`.padStart(2, '0')}
                       </Popover.Button>
                     );
                   })}
